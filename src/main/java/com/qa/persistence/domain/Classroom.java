@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 
 
 @Entity
@@ -16,18 +19,18 @@ public class Classroom {
 		private Long id;
 		private Long classroomID;
 		private String trainer;
-		private String trainee;
+		private Long trainees;
 		
 
 		public Classroom() {
 
 		}
 
-		public Classroom(Long id, Long classroomID, String trainer, String trianee) {
+		public Classroom(Long id, Long classroomID, String trainer, Long trainees) {
 			this.id = id;
 			this.classroomID = classroomID;
 			this.trainer = trainer;
-			this.trainee = trainee;
+			this.trainees = trainees;
 		}
 
 		public Long getId() {
@@ -54,12 +57,20 @@ public class Classroom {
 			this.trainer = trainer;
 		}
 
-		public String getTrainee() {
-			return trainee;
+		public Long getTrainees() {
+			return trainees;
 		}
 
-		public void setTrainee(String trainee) {
-			this.trainee = trainee;
+		public void setTrainees(Long trainees) {
+			this.trainees = trainees;
 		}
+		
+		@ManyToOne
+		@JoinTable(name="Classroom_Trainee",
+		joinColumns = @JoinColumn(name="trainees", 
+		referencedColumnName = "userid"),
+		inverseJoinColumns = @JoinColumn(name= "TraineeID", 
+		referencedColumnName = "TraineeID"))
+		Trainee trainee;
 
 }
