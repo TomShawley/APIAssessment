@@ -28,4 +28,24 @@ public class ServiceImpl implements Service {
 		return repo.updateATrainee(id, trainee);
 	}
 
+	public String getAllClassrooms() {
+		return repo.getAllClassrooms();
+	}
+
+	public String createClassroom(String Classroom) {
+		return repo.createClassroom(Classroom);
+	}
+
+	public String deleteClassroom(Long id) {
+		return repo.deleteClassroom(id);
+	}
+
+	public String updateClassroom(Long id, String classroom) {
+		return repo.updateClassroom(id, classroom);
+	}
+
+	public String findAClassroom(Long id) {
+		return repo.findAClassroom(id);
+	}
+
 }
