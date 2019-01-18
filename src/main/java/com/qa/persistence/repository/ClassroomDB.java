@@ -12,19 +12,20 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import com.qa.persistence.domain.Classroom;
 import com.qa.persistence.domain.Trainee;
 import com.qa.util.JSONUtil;
 
 @Transactional(SUPPORTS)
 @Default
-public class TraineeDB implements Repository {
+public class ClassroomDB implements Repository {
+
 	@PersistenceContext(unitName = "primary")
 	private EntityManager manager;
 
 	@Inject
 	private JSONUtil util;
 
-	
 	public String getAllTrainees() {
 		Query query = manager.createQuery("SELECT a FROM Account a");
 		Collection<Trainee> trainee = (Collection<Trainee>) query.getResultList();
@@ -32,7 +33,6 @@ public class TraineeDB implements Repository {
 
 	}
 
-	
 	@Transactional(REQUIRED)
 	public String createTrainee(String trainee) {
 		Trainee aTrainee = util.getObjectForJSON(trainee, Trainee.class);
@@ -40,7 +40,6 @@ public class TraineeDB implements Repository {
 		return "{\"message\": \"account has been sucessfully added\"}";
 	}
 
-	
 	@Transactional(REQUIRED)
 	public String deleteTrainee(Long id) {
 		Trainee traineeInDB = manager.find(Trainee.class, id);
@@ -51,21 +50,53 @@ public class TraineeDB implements Repository {
 		return "{\"message\": \"account sucessfully deleted\"}";
 	}
 
-	
 	public String findATrainee(Long id) {
 		Trainee trainee = manager.find(Trainee.class, id);
 		return util.getJSONForObject(trainee);
 	}
 
-	
 	@Transactional(REQUIRED)
 	public String updateATrainee(Long id, String trainee) {
 		Trainee aTrainee = manager.find(Trainee.class, id);
 		manager.remove(aTrainee);
 		Trainee updTrainee = util.getObjectForJSON(trainee, Trainee.class);
-		manager.persist(updTrainee);
 		return "{\"message\": \"account has been sucessfully updated\"}";
 	}
+
+	public String getAllClassrooms() {
+		Query query = manager.createQuery("SELECT a FROM Account a");
+		Collection<Classroom> classroom = (Collection<Classroom>) query.getResultList();
+		return util.getJSONForObject(classroom);
+	}
+
+	public String createClassroom(String Classroom) {
+		Classroom aClassroom = util.getObjectForJSON(Classroom, Classroom.class);
+		manager.persist(aClassroom);
+		return "{\"message\": \"account has been sucessfully added\"}";
+	}
+
+	public String deleteClassroom(Long id) {
+		Classroom classroomInDB = manager.find(Classroom.class, id);
+		if (classroomInDB != null) {
+			manager.remove(classroomInDB);
+		}
+
+		return "{\"message\": \"account sucessfully deleted\"}";
+		
+	}
+
+	public String updateClassroom(Long id, String classroom) {
+		Classroom aclassroom = manager.find(Classroom.class, id);
+		manager.remove(aclassroom);
+		Classroom updclassroom = util.getObjectForJSON(classroom, Classroom.class);
+		manager.persist(updclassroom);
+		return "{\"message\": \"account has been sucessfully updated\"}";
+	}
+	public String findAClassroom(Long id) {
+		Classroom classroom = manager.find(Classroom.class, id);
+		return util.getJSONForObject(classroom);
+	}
+
 
 	public EntityManager getManager() {
 		return manager;
@@ -83,36 +114,5 @@ public class TraineeDB implements Repository {
 		this.util = util;
 	}
 
-
-	public String getAllClassrooms() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public String createClassroom(String Classroom) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public String deleteClassroom(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public String updateClassroom(Long id, String classroom) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	public String findAClassroom(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
-
 }
