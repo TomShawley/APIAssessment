@@ -1,14 +1,14 @@
 package com.qa.persistence.domain;
 
-import java.util.Set;
+
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+
 import javax.persistence.ManyToOne;
 
 
@@ -17,12 +17,11 @@ public class Trainee {
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-
 	private Long id;
-	
 	private Long trianeeID;
 	private String traineeName;
-
+	@ManyToOne
+	@JoinColumn(name="classroom_id")
 	private Classroom classroom;
 
 	public Trainee() {

@@ -2,15 +2,15 @@ package com.qa.persistence.domain;
 
 import java.util.List;
 
-
+import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
+
 
 import javax.persistence.OneToMany;
-import javax.persistence.JoinColumn;
+
 
 
 @Entity
@@ -23,7 +23,7 @@ public class Classroom {
 		private Long id;
 		private Long classroomID;
 		private String trainer;
-
+		@OneToMany(mappedBy="classroom")
 		private List<Trainee> trainees;
 		
 
