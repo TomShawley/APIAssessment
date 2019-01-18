@@ -1,11 +1,15 @@
 package com.qa.persistence.domain;
 
+import java.util.List;
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 
 
@@ -19,14 +23,15 @@ public class Classroom {
 		private Long id;
 		private Long classroomID;
 		private String trainer;
-		private Long trainees;
+
+		private List<Trainee> trainees;
 		
 
 		public Classroom() {
 
 		}
 
-		public Classroom(Long id, Long classroomID, String trainer, Long trainees) {
+		public Classroom(Long id, Long classroomID, String trainer, List<Trainee> trainees) {
 			this.id = id;
 			this.classroomID = classroomID;
 			this.trainer = trainer;
@@ -57,20 +62,15 @@ public class Classroom {
 			this.trainer = trainer;
 		}
 
-		public Long getTrainees() {
+		public List<Trainee> getTrainees() {
 			return trainees;
 		}
 
-		public void setTrainees(Long trainees) {
+		public void setTrainees(List<Trainee> trainees) {
 			this.trainees = trainees;
 		}
 		
-		@ManyToOne
-		@JoinTable(name="Classroom_Trainee",
-		joinColumns = @JoinColumn(name="trainees", 
-		referencedColumnName = "userid"),
-		inverseJoinColumns = @JoinColumn(name= "TraineeID", 
-		referencedColumnName = "TraineeID"))
-		Trainee trainee;
+		
+		
 
 }
